@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { DATA_SLIDER } from '../../assets/fake-data';
 import gitHub from '../../assets/images/gitHub.png';
 import Button from '../Button/ Button';
+import Dots from '../Dots/Dots';
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(1);
@@ -41,6 +42,7 @@ const Slider = () => {
       })}
       <Button moveSlide={INCREMENT} direction={'next'} />
       <Button moveSlide={DECREMENT} direction={'prev'} />
+      <Dots slideIndex={slideIndex} arrLength={DATA_SLIDER.length} />
     </div>
   );
 };

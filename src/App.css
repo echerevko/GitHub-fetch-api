@@ -48,7 +48,7 @@ body {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background:rgb(240, 145, 193);
+  background: rgb(255, 255, 255);
   border: 1px solid rgba(34, 34, 34, 0.287);
   position: absolute;
   display: flex;
@@ -58,21 +58,21 @@ body {
 }
 
 .btn-slide:hover {
-  background:rgb(180, 140, 220);
-  border: 1px solid rgba(34, 34, 34, 0.287);
+  background:hotpink;
 }
 
 .btn-slide img {
   width: 25px;
   height: 25px;
   pointer-events: none;
-  /* background-color: rebeccapurple; */
 }
+
 .prev {
   top: 50%;
   left: 20px;
   transform: translateY(-60%);
 }
+
 .next {
   top: 50%;
   right: 20px;
@@ -90,11 +90,11 @@ body {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 3px solid #f1f1f1;
+  border: 3px solid #171515;
   margin: 0 5px;
-  background: #f1f1f1;
+  background: white;
 }
 .dot.active {
-  background: rgb(32, 32, 32);
+  background: rebeccapurple;
 }
 
