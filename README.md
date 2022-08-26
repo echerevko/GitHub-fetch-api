@@ -53,7 +53,7 @@ src/
 
 ### UI:
 
-- built responsively tablet and laptop
+- built responsively fo tablet and laptop
 - I made an application in a minimalistic unobtrusive design
 
 ### CSS:
@@ -68,9 +68,9 @@ src/
 ## Client side: REACT
 
 - for the state management of the application and for implementation of the app I used modern React
-- I tried to distribute the code between different components as much as possible to make it easier to write unit tests
+- I tried to distribute the code between different components as much as possible to make it easier to build unit tests
 
-## Server side
+## Server 
 
 - We do not have a server side in the application, but we can)
 
@@ -88,6 +88,6 @@ src/
 
 - In real projects, we use a well-thought-out state management structure. Therefore, it is always better to understand in advance how we share data between different components, and how we pass props. In this application, I used simple react hooks
 
-- Also, it is good practice to write unit tests
+- Also, it is good practice to have unit tests
 
 - This task could be complicated and implement gitHub authentication with obtaining a token and the required data between the client and the server. But it wasn't in the assignment
