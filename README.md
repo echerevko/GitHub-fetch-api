@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# NoA code challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Preview: https://effulgent-souffle-4d9265.netlify.app/
 
-## Available Scripts
+Requirements: [PDF Document](./docs/NoA_challenge.pdf)
 
-In the project directory, you can run:
+## Used Technologies
 
-### `npm start`
+- main: React
+- code hosting: GitHub
+- deploing hosting: Netlify
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Get started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Clone the repository
+- Enter the cloned repository in a terminal of your choosing
+- yarn
+- yarn start
 
-### `npm test`
+## Directory structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+README.md
+public/
+src/
+    assets/
+    -- Pictures and icons used in the project
+        icons/
+        images/
+    components/
+        -- Components of the project
+        Button/
+            Button.js
+        Dots/
+            Dots.js
+        Slide/
+            Slide.js
+        Slider/
+            Slider.js
+    shared/
+        -- Constants used in the project
+        constants.js
+    App.css
+    App.js
+    index.js
+```
 
-### `npm run build`
+## Component nesting
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- App.js => Slider.js => (Slide.js, Button.js, Dots.js)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Client side: styles, UI, UX
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### UI:
 
-### `npm run eject`
+- built responsively tablet and laptop
+- I made an application in a minimalistic unobtrusive design
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### CSS:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- the app used regular CSS for styling
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### UX:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- I deviated from the requirements and built the buttons that I liked
+- Also, I decided to add indicators for slides to understand their number
 
-## Learn More
+## Client side: REACT
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- for the state management of the application and for implementation of the app I used modern React
+- I tried to distribute the code between different components as much as possible to make it easier to write unit tests
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Server side
 
-### Code Splitting
+- We do not have a server side in the application, but we can)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Optimization:
 
-### Analyzing the Bundle Size
+### Styles, UI, UX
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Styles are better to use declared. But, unfortunately, I did not work with JSS. I prefer Styled-components, @emotio
 
-### Making a Progressive Web App
+- It is better to create all HTML elements on the project level and then customize them directly in a separate component
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- For the content part, it is better to use a content management system. I worked with Strapi, Contentful, WordPress
 
-### Advanced Configuration
+### Client/React
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- In real projects, we use a well-thought-out state management structure. Therefore, it is always better to understand in advance how we share data between different components, and how we pass props. In this application, I used simple react hooks
 
-### Deployment
+- Also, it is good practice to write unit tests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- This task could be complicated and implement gitHub authentication with obtaining a token and the required data between the client and the server. But it wasn't in the assignment
