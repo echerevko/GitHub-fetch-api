@@ -1,48 +1,69 @@
-import React, { useState } from 'react';
-import { DATA_SLIDER } from '../../assets/fake-data';
-import gitHub from '../../assets/images/gitHub.png';
+import React, { useEffect, useState } from 'react';
 import Button from '../Button/ Button';
 import Dots from '../Dots/Dots';
+import Slide from '../Slide/Slide';
+import { BASE_URL, GIT_HUB_URLS } from '../../shared/constants';
 
 const Slider = () => {
-  const [slideIndex, setSlideIndex] = useState(1);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [data, setData] = useState({});
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
+  //receiving data from the server
+  const doFetch = async (url) => {
+    await fetch(BASE_URL + url)
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        setData({
+          name: response.full_name,
+          description: response.description,
+          stars: response.stargazers_count
+        });
+        setIsLoading(true);
+        setError(null);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setIsLoading(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    doFetch(GIT_HUB_URLS[slideIndex]);
+  }, [slideIndex]);
+
+  //slide right, INCREMENT
   const INCREMENT = () => {
-    if (slideIndex !== DATA_SLIDER.length) {
-      setSlideIndex(slideIndex + 1);
-    } else if (slideIndex === DATA_SLIDER.length) {
-      setSlideIndex(1);
+    if (slideIndex < GIT_HUB_URLS.length - 1) {
+      setSlideIndex((prev) => prev + 1);
     }
   };
 
+  //slide left, DECREMENT
   const DECREMENT = () => {
-    if (slideIndex !== 1) {
-      setSlideIndex(slideIndex - 1);
-    } else if (slideIndex === 1) {
-      setSlideIndex(DATA_SLIDER.length);
+    if (slideIndex === 0) {
+      return;
+    } else {
+      setSlideIndex((prev) => prev - 1);
     }
   };
 
+  //divide the code into logical blocks for easy testing
   return (
     <div className='container-slider'>
-      {DATA_SLIDER?.map((slide, index) => {
-        return (
-          <ul
-            className={
-              slideIndex === index + 1 ? 'slide active-slide' : 'slide'
-            }
-            key={slide.index}
-          >
-            <img src={gitHub} alt='gitHub' />
-            <li>{slide.name}</li>
-            <li>{slide.description}</li>
-            <li>{slide.stars}</li>
-          </ul>
-        );
-      })}
+      {isLoading && <h1>Loading...</h1>}
+      {error && (
+        <div>{`There is a problem fetching the data from gitHub API - ${error}`}</div>
+      )}
+      <Slide {...data} />
       <Button moveSlide={INCREMENT} direction={'next'} />
       <Button moveSlide={DECREMENT} direction={'prev'} />
-      <Dots slideIndex={slideIndex} arrLength={DATA_SLIDER.length} />
+      <Dots slideIndex={slideIndex} arrLength={GIT_HUB_URLS.length} />
     </div>
   );
 };
