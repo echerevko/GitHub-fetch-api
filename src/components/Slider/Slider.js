@@ -3,12 +3,18 @@ import Button from '../Button/ Button';
 import Dots from '../Dots/Dots';
 import Slide from '../Slide/Slide';
 import { BASE_URL, GIT_HUB_URLS } from '../../shared/constants';
+import { useCounter } from '../../shared/functions';
 
 const Slider = () => {
-  const [slideIndex, setSlideIndex] = useState(0);
+  // const [slideIndex, setSlideIndex] = useState(0);
   const [data, setData] = useState({});
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const {
+    value: slideIndex,
+    INCREMENT,
+    DECREMENT
+  } = useCounter(0, 1, GIT_HUB_URLS.length);
 
   //receiving data from the server
   const doFetch = async (url) => {
@@ -37,22 +43,6 @@ const Slider = () => {
     doFetch(GIT_HUB_URLS[slideIndex]);
   }, [slideIndex]);
 
-  //slide right, INCREMENT
-  const INCREMENT = () => {
-    if (slideIndex < GIT_HUB_URLS.length - 1) {
-      setSlideIndex((prev) => prev + 1);
-    }
-  };
-
-  //slide left, DECREMENT
-  const DECREMENT = () => {
-    if (slideIndex === 0) {
-      return;
-    } else {
-      setSlideIndex((prev) => prev - 1);
-    }
-  };
-
   //divide the code into logical blocks for easy testing
   return (
     <div className='container-slider'>
@@ -61,8 +51,8 @@ const Slider = () => {
         <div>{`There is a problem fetching the data from gitHub API - ${error}`}</div>
       )}
       <Slide {...data} />
-      <Button moveSlide={INCREMENT} direction={'next'} />
-      <Button moveSlide={DECREMENT} direction={'prev'} />
+      <Button moveSlide={() => INCREMENT()} direction={'next'} />
+      <Button moveSlide={() => DECREMENT()} direction={'prev'} />
       <Dots slideIndex={slideIndex} arrLength={GIT_HUB_URLS.length} />
     </div>
   );
