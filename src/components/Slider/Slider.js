@@ -3,7 +3,7 @@ import Button from '../Button/ Button';
 import Dots from '../Dots/Dots';
 import Slide from '../Slide/Slide';
 import { BASE_URL, GIT_HUB_URLS } from '../../shared/constants';
-import { useCounter } from '../../shared/functions';
+import { useCounter } from '../../shared/useCounter';
 
 const Slider = () => {
   // const [slideIndex, setSlideIndex] = useState(0);
@@ -13,7 +13,7 @@ const Slider = () => {
   const {
     value: slideIndex,
     INCREMENT,
-    DECREMENT
+    DECREMENT,
   } = useCounter(0, 1, GIT_HUB_URLS.length);
 
   //receiving data from the server
@@ -25,7 +25,7 @@ const Slider = () => {
         setData({
           name: response.full_name,
           description: response.description,
-          stars: response.stargazers_count
+          stars: response.stargazers_count,
         });
         setIsLoading(true);
         setError(null);
