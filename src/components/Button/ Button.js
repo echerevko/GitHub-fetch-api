@@ -7,7 +7,7 @@ const Button = ({ moveSlide, direction }) => {
   return (
     <div>
       <button
-        onClick={moveSlide}
+        onClick={() => moveSlide()}
         className={direction === 'next' ? 'btn-slide next' : 'btn-slide prev'}
       >
         <img src={direction === 'next' ? rightBtn : leftBtn} alt='' />
