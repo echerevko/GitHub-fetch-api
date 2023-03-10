@@ -4,50 +4,34 @@ import Dots from '../Dots/Dots';
 import Slide from '../Slide/Slide';
 import { BASE_URL, GIT_HUB_URLS } from '../../shared/constants';
 import { useCounter } from '../../shared/useCounter';
+import { getData } from '../../shared/helpers';
 
 const Slider = () => {
   const [data, setData] = useState({});
-  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const {
     value: slideIndex,
     INCREMENT,
     DECREMENT,
   } = useCounter(0, 1, GIT_HUB_URLS.length);
-  // const isLoading = !error && !data;
-
-  //receiving data from the server
-  const doFetch = (url) => {
-    setIsLoading(true);
-    fetch(url)
-      .then((response) => response.json())
-      .then((response) => {
-        setData({
-          name: response.full_name,
-          description: response.description,
-          stars: response.stargazers_count,
-          avatar: response.organization,
-        });
-        setIsLoading(false);
-        setError(null);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setIsLoading(false);
-      });
-  };
 
   useEffect(() => {
-    doFetch(BASE_URL + GIT_HUB_URLS[slideIndex]);
+    setIsLoading(true);
+    getData(BASE_URL + GIT_HUB_URLS[slideIndex]).then((response) => {
+      setData({
+        name: response.full_name,
+        description: response.description,
+        stars: response.stargazers_count,
+        avatar: response.organization,
+      });
+      setIsLoading(false);
+    });
   }, [slideIndex]);
 
   //divide the code into logical blocks for easy testing
   return (
     <div className='container-slider'>
-      {isLoading && <h3>Loading...</h3>}
-      {error && (
-        <h3>{`There is a problem fetching the data from gitHub API - ${error}`}</h3>
-      )}
+      {isLoading && <p>Loading...</p>}
       <Slide {...data} />
       <Button moveSlide={() => INCREMENT()} direction={'next'} />
       <Button moveSlide={() => DECREMENT()} direction={'prev'} />

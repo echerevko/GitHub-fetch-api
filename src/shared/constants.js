@@ -8,5 +8,5 @@ export const GIT_HUB_URLS = [
   'storybooks/storybook',
   'facebook/react',
   'reactjs/redux',
-  'expressjs/express'
+  'expressjs/express',
 ];
