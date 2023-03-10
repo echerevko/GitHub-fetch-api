@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useMemo, useEffect } from 'react';
 import gitHub from '../../assets/images/gitHub.png';
 
 const SlideName = ({ name }) => {
-  const newName = name.substr(name.indexOf('/') + 1, name.length).toUpperCase();
-  return <div>{newName}</div>;
+  const newName = useMemo(
+    () => name.substr(name.indexOf('/') + 1, name.length).toUpperCase(),
+    [name]
+  );
+  useEffect(() => {
+    document.title = newName;
+  }, [newName]);
+
+  return <div style={{ textAlign: 'center' }}>{newName}</div>;
 };
 
 // implementation of a single slide with the required data
-const Slide = ({ name, description, stars }) => {
+const Slide = ({ name, description, stars, avatar }) => {
+  const newStars = useMemo(() => Math.floor(stars / 1000), [stars]);
+  const avatarUrl = avatar?.avatar_url;
+
   return (
     <div className='slide'>
-      <img src={gitHub} alt='gitHub' />
+      <img src={name ? avatarUrl : gitHub} alt='gitHub' />
       <ul className='list-wrapper '>
         {!name ? (
           'Item is undefined'
@@ -18,10 +28,12 @@ const Slide = ({ name, description, stars }) => {
           <div>
             <li>
               Technology name:{' '}
-              <b>{!name ? 'Item is undefined' : <SlideName name={name} />}</b>
+              <b>
+                <SlideName name={name} />
+              </b>
             </li>
             <li>Description: {description}</li>
-            <li>☆ {Math.floor(stars / 1000)}K</li>
+            <li>☆ {newStars}K</li>
           </div>
         )}
       </ul>

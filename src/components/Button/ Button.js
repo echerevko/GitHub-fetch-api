@@ -5,8 +5,8 @@ import rightBtn from '../../assets/icons/right-btn.svg';
 //implementation of buttons using .svg
 const Button = ({ moveSlide, direction }) => {
   const newClassName =
-    direction === 'next' ? 'btn-slide next' : 'btn-slide prev';
-  const newDirection = direction === 'next' ? rightBtn : leftBtn;
+    (direction === 'next' && 'btn-slide next') || 'btn-slide prev';
+  const newDirection = (direction === 'next' && rightBtn) || leftBtn;
 
   return (
     <div>

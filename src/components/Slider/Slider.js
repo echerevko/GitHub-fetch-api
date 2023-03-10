@@ -6,7 +6,6 @@ import { BASE_URL, GIT_HUB_URLS } from '../../shared/constants';
 import { useCounter } from '../../shared/useCounter';
 
 const Slider = () => {
-  // const [slideIndex, setSlideIndex] = useState(0);
   const [data, setData] = useState({});
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -15,40 +14,39 @@ const Slider = () => {
     INCREMENT,
     DECREMENT,
   } = useCounter(0, 1, GIT_HUB_URLS.length);
+  // const isLoading = !error && !data;
 
   //receiving data from the server
-  const doFetch = async (url) => {
-    await fetch(BASE_URL + url)
+  const doFetch = (url) => {
+    setIsLoading(true);
+    fetch(url)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         setData({
           name: response.full_name,
           description: response.description,
           stars: response.stargazers_count,
+          avatar: response.organization,
         });
-        setIsLoading(true);
+        setIsLoading(false);
         setError(null);
       })
       .catch((error) => {
         setError(error.message);
-        setIsLoading(true);
-      })
-      .finally(() => {
         setIsLoading(false);
       });
   };
 
   useEffect(() => {
-    doFetch(GIT_HUB_URLS[slideIndex]);
+    doFetch(BASE_URL + GIT_HUB_URLS[slideIndex]);
   }, [slideIndex]);
 
   //divide the code into logical blocks for easy testing
   return (
     <div className='container-slider'>
-      {isLoading && <h1>Loading...</h1>}
+      {isLoading && <h3>Loading...</h3>}
       {error && (
-        <div>{`There is a problem fetching the data from gitHub API - ${error}`}</div>
+        <h3>{`There is a problem fetching the data from gitHub API - ${error}`}</h3>
       )}
       <Slide {...data} />
       <Button moveSlide={() => INCREMENT()} direction={'next'} />
